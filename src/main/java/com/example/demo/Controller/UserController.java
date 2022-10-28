@@ -3,10 +3,12 @@ package com.example.demo.Controller;
 
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 @RequestMapping("/user")
 @Controller
@@ -21,5 +23,18 @@ public class UserController {
    public String userListPage(Model model){
     model.addAttribute("users",userService.findAll());
        return "user";
+   }
+
+   @GetMapping("/{id}")
+   public String userById(@PathVariable long id, Model model){
+    model.addAttribute("user",userService.findById(id).orElseThrow(NotFoundExeption::new));
+    return "user_form";
+   }
+
+   @ExceptionHandler
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   public String notFoundExeptionHAndler(NotFoundExeption ex){
+    return "not_found";
+
    }
 }
