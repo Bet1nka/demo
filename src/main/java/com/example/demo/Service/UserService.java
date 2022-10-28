@@ -15,9 +15,9 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userRepository.save(new User("User1 as"));
-        this.userRepository.save(new User("User2 asd"));
-        this.userRepository.save(new User("User3 asd"));
+        this.userRepository.save(new User("Betina"));
+        this.userRepository.save(new User("andrew"));
+        this.userRepository.save(new User("Alex"));
     }
     public List<User> findAll(){
         return userRepository.findAll();
